@@ -63,6 +63,7 @@ def process_data():
         time.sleep(3)
         msg.empty()
 
+# Main retriever
 @tool(response_format="content_and_artifact")
 def retrieve(query: str):
     """Retrieve information related to a query.
@@ -70,7 +71,7 @@ def retrieve(query: str):
     Args:
         query: The user's query.
     """
-    retrieved_docs = st.session_state.vector_store.similarity_search(query, k=3)
+    retrieved_docs = st.session_state.vector_store.similarity_search(query, k=6)
     keys = ["author", "creator", "page", "source", "start_index", "total_pages"]
     serialized = "\n\n".join(
         (f"Source: {[{key: doc.metadata.get(key)} for key in keys]}\n" f"Content: {doc.page_content}")
@@ -81,7 +82,7 @@ def retrieve(query: str):
 def generate(query):
     """Generate a response to the user's query."""
     # Dummy retriever.
-    retriever = st.session_state.vector_store.as_retriever(search_kwargs={"k" : 1, "fetch_k" : 1})
+    retriever = st.session_state.vector_store.as_retriever(search_kwargs={"k" : 1})
 
     # Create a RAG chain using the history-aware retriever and the document-retriever.
     history_retriever = history_aware_retriever(st.session_state.llm, retriever)
