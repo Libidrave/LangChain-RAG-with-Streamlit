@@ -29,7 +29,9 @@ def load_model(api_key):
         return ChatOpenAI(model="gpt-4o-mini", temperature=0.3, api_key=api_key)
     elif st.session_state.provider == "Groq":
         return ChatOpenAI(model="llama-3.1-8b-instant", temperature=0.3, api_key=api_key, base_url="https://api.groq.com/openai/v1")
-    
+
+@st.cache_resource
+def load_embedding():
     st.session_state.embedding = FastEmbedEmbeddings(model_name="jinaai/jina-embeddings-v2-base-de",
                                                      batch_size=64)   
 
@@ -105,6 +107,7 @@ if __name__ == "__main__":
 
     inputs()
     st.session_state.llm = load_model(os.getenv("OPENAI_API_KEY"))
+    load_embedding()
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
