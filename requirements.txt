@@ -1,0 +1,14 @@
+langchain
+langgraph
+langchain-core
+langchain-text-splitters 
+langchain-community
+langchain-openai
+langchain-chroma
+openai
+chromadb
+python-dotenv
+pandas
+pymupdf
+pysqlite3-binary
+fastembed
