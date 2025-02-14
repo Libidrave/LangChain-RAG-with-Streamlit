@@ -1,6 +1,6 @@
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+# __import__('pysqlite3')
+# import sys
+# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 import os
 import time
@@ -25,17 +25,21 @@ st.title("Demo Retrieval Augmented Generation With LanghChain & Chroma")
 @st.cache_resource
 def load_model(api_key):
     """cached llm and embedding model"""
-    st.session_state.llm = ChatOpenAI(model="llama-3.1-8b-instant", temperature=0.3, api_key=api_key, base_url="https://api.groq.com/openai/v1")
-    st.session_state.embedding = FastEmbedEmbeddings(
-                batch_size=64,
-                model_name="jinaai/jina-embeddings-v2-base-de"
-                )   
+    if st.session_state.provider == "OpenAI":
+        return ChatOpenAI(model="gpt-4o-mini", temperature=0.3, api_key=api_key)
+    elif st.session_state.provider == "Groq":
+        return ChatOpenAI(model="llama-3.1-8b-instant", temperature=0.3, api_key=api_key, base_url="https://api.groq.com/openai/v1")
+    
+    st.session_state.embedding = FastEmbedEmbeddings(model_name="jinaai/jina-embeddings-v2-base-de",
+                                                     batch_size=64)   
 
 def inputs():
     """Input fields for user interaction"""
     with st.sidebar:
-        st.session_state.groq_api_key = st.text_input("GroQ API Key", type="password")
-        os.environ["OPENAI_API_KEY"] = st.session_state.groq_api_key
+        st.session_state.provider = st.radio("Pilih model LLM", ["OpenAI", "Groq"])
+
+        st.session_state.api_key = st.text_input("Masukkan API Key", type="password")
+        os.environ["OPENAI_API_KEY"] = st.session_state.api_key
         
         st.session_state.chroma_collection_name = st.text_input("Chroma Collection Name")
 
@@ -100,7 +104,7 @@ if __name__ == "__main__":
     os.makedirs(db_name, exist_ok=True) # This directory is used to store persistent files from Chromadb
 
     inputs()
-    load_model(os.getenv("OPENAI_API_KEY"))
+    st.session_state.llm = load_model(os.getenv("OPENAI_API_KEY"))
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
