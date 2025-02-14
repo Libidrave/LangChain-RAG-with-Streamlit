@@ -20,7 +20,7 @@ import streamlit as st
 db_name = "chroma" # default name for Chromadb
 
 st.set_page_config(page_title="RAG Demo App")
-st.title("Retrieval Augmented Generation With LanghChain & Chroma")
+st.title("Demo Retrieval Augmented Generation With LanghChain & Chroma")
 
 @st.cache_resource
 def load_model(api_key):
