@@ -48,7 +48,7 @@ def inputs():
 
 def process_data():
     """Main function to process data"""
-    if not st.session_state.groq_api_key or not st.session_state.chroma_collection_name or not st.session_state.source_docs:
+    if not st.session_state.api_key or not st.session_state.chroma_collection_name or not st.session_state.source_docs:
         st.error("Tolong masukan API key, Chroma collection name, dan dokumen yang diperlukan!!")
     else:
         with st.spinner("📚 Memproses dokumen..."):
