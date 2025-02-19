@@ -1,5 +1,5 @@
 # LangChain RAG with Streamlit
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://langchain-rag-nafis.streamlit.app)
+Try Out The Demo Here : [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://huggingface.co/spaces/Libidrave/LLM-RAG)
 
 ## Usage
 1. Clone the repository:
