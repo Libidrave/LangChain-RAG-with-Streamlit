@@ -15,7 +15,7 @@ pip install -r requirements.txt
 ```
 streamlit run streamlitrag.py
 ```
-4. Make sure that you have the [[OpenAI API](https://platform.openai.com/api-keys)] Key or [[Groq API](https://console.groq.com/keys)] Key.
+4. Make sure that you have the [OpenAI API(https://platform.openai.com/api-keys)] Key or [Groq API(https://console.groq.com/keys)] Key.
 5. Input your API key and Chroma Collection Name in the respective fields.
 6. Upload your PDF files, then click the "Proses Dokumen" button to process the documents.
 7. Finally, you can have an interactive conversations by typing your question in the chat input field.
